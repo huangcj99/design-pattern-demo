@@ -1,3 +1,4 @@
+// 键盘keyCode对应的动作
 const commands = {
   "119": 'jump',
   "115": 'crouch',
@@ -5,6 +6,7 @@ const commands = {
   "100": 'attack'
 }
 
+// 动作对应的执行函数
 const actions = {
   jump: () => {
     console.log('跳跃')
@@ -20,14 +22,17 @@ const actions = {
   }
 }
 
+// 创建命令函数
 const setCommand = (actions, action) => {
   return () => {
     actions[action]()
   }
 }
 
+// 历史堆栈
 let commandStack = []
 
+// 有对应命令执行并且推入历史堆栈中
 document.onkeypress = (e) => {
   let keyCode = e.keyCode
   let command = setCommand(actions, commands[keyCode])
@@ -38,6 +43,7 @@ document.onkeypress = (e) => {
   }
 }
 
+// 重新执行一系列动作
 document.getElementById('replay').onclick = () => {
   let command = function () {}
   console.log('------------------------')
@@ -46,10 +52,4 @@ document.getElementById('replay').onclick = () => {
   }
 } 
 
-document.getElementById('back').onclick = () => {
-  let command = function () { }
-  console.log('------------------------')
-  command = commandStack.pop()
-  command()
-} 
 
